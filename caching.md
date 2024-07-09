@@ -176,3 +176,89 @@
 * Key Takeaways
     • Memoization can transform an algorithm from exponential time complexity to linear time complexity
     • Use memoization for recursive problems with overlapping sub-problems to significantly improve performance
+
+
+
+# Tabulation of Fibonacci
+
+* Tabulation Overview
+    • Tabulation optimises algorithms by iteratively building a table (array) of results
+    • Key Features:
+        1. Iterative function (not recursive)
+        2. Uses an array (table) to store intermediate results
+
+* When to Use Tabulation
+    • Effective for problems that can be converted from recursion to iteration
+    • Example: calculating Fibonacci numbers
+
+* Example: Tabulating Fibonacci
+
+    • Tabulation Strategy:
+        1. Create a table (array) to store results
+        2. Initialise the base cases
+        3. Fill the table iteratively from left to right
+        4. The final entry contains the solution
+
+* Implementation:
+
+    ```js
+    function tabulatedFib(n) {
+        let table = new Array(n + 1);
+
+        table[0] = 0;
+        table[1] = 1;
+
+        for (let i = 2; i  <= n; i++) {
+            table[i] = table[i - 1] + table[i - 2];
+        }
+
+        return table[n];
+    }
+
+    console.log(tabulatedFib(7)); // => 13
+    ```
+
+* Complexity Analysis
+
+    • Time Complexity: O(n) - iterative loop runs n times
+    • Space Complexity: O(n) - table stores n elements
+
+* Optimising Space Complexity
+
+    • Store only the last two results instead of the full table
+
+    Implementation:
+    ```js
+    function fib(n) {
+        let mostRecentCalcs = [0, 1];
+
+        if (n === 0) return mostRecentCalcs[0];
+
+        for (let i = 2; i <= n; i++) {
+            const [secondLast, last] = mostRecentCalcs;
+            mostRecentCalcs = [last, secondLast + last];
+        }
+
+        return mostRecentCalcs[1];
+    }
+
+    console.log(fib(7)); // => 13
+    ```
+
+    • Optimised Complexity:
+        • Time Complexity: O(n)
+        • Space Complexity: O(1)
+
+
+* Tabulation Formula
+
+    1. Create a table array based on input size
+    2. Initialise values for trivially small subproblems
+    3. Iterate through the array, filling in entries using previous results
+    4. The final answer is usually the last entry in the table
+
+
+* Key Takeaways
+
+    • Tabulation changes an algorithm's complexity class by storing intermediate results
+    • This method is powerful for making iterative calculations more efficient
